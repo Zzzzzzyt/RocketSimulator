@@ -16,7 +16,7 @@ public class Simulator {
 	
 	public void sim() {
 		last=rs.r.t;
-		while(rs.r.t<last+1/fps) {
+		while(rs.r.t<last+1/fps*50) {
 			Physics.sim(rs.r);
 			if (Physics.tri(rs.r.x, rs.r.y) < Physics.R) {
 				System.out.printf("Crash! t=%.2f\n", rs.r.t);

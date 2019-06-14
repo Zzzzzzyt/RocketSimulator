@@ -12,9 +12,9 @@ public class F9B5 {
 			public double getDrag(Rocket r) {return 3.3;}
 			public double getTr(Rocket r) {return 7586 * 1000;}
 			public double getTheta(Rocket r) {
-				if (r.t <= 60)
+				if (r.t <= 100)
 					return Math.PI / 2;
-				return Math.PI / 2 * (180 - r.t) / 120;
+				return Math.PI / 2 * (180 - r.t) / 80;
 			}
 			public double getMass(Rocket r) {return 457545 - r.t * 3025;}
 			public double getM0() {return 457545;}
@@ -27,11 +27,11 @@ public class F9B5 {
 			public double getTheta(Rocket r) {
 				if (r.t >= 180)
 					return 0;
-				return Math.PI / 2 * (180 - r.t) / 120;
+				return Math.PI / 2 * (180 - r.t) / 80;
 			}
-			public double getMass(Rocket r) {return 91509 - (r.t - 150) * 250/2;}
+			public double getMass(Rocket r) {return 91509 - (r.t - 150) * 250;}
 			public double getM0() {return 91509;}
-			public double getTime() {return 360*2;}
+			public double getTime() {return 360;}
 		});
 
 		r.stages.add(new Stage() {
