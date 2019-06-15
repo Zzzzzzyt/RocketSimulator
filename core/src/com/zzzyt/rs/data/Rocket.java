@@ -25,6 +25,11 @@ public class Rocket {
 		nextTime=stages.get(0).getTime();
 	}
 	
+	public double getVAngle() {
+		if(vx<0)return Math.atan(vy/vx)+Math.PI;
+		return Math.atan(vy/vx);
+	}
+	
 	public double getMass() {
 		return tmpmass+stages.get(stage).getMass(this);
 	}
@@ -82,7 +87,7 @@ public class Rocket {
 
 	
 	public void debug() {
-		System.out.printf("t=%.1f x=%.2f y=%.2f vx=%.2f vy=%.2f m=%.0f h=%.1f th=%.2f\n",t,x,y,vx,vy,getMass(),Physics.tri(x,y)-Physics.R,getTheta()/Math.PI);
+		System.out.printf("t=%.1f x=%.2f y=%.2f vx=%.2f vy=%.2f m=%.0f h=%.1f drag=%.2f th=%.2f\n",t,x,y,vx,vy,getMass(),Physics.tri(x,y)-Physics.R,Physics.tri(x,y)>=Physics.R+Physics.up?0:getDrag()*(Physics.R+Physics.up-Physics.tri(x,y))/Physics.up,getTheta()/Math.PI);
 	}
 	
 	@Override

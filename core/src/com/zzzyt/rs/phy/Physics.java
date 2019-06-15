@@ -9,7 +9,7 @@ public class Physics {
 	public final static double R = 6378000;
 	public final static double up = 80000;
 	
-	public final static double dt=0.01;
+	public final static double dt=0.05;
 	
 	static double gravity,drag,ax,ay,tr,theta,m,flow,x,y,vx,vy;
 	
@@ -32,7 +32,13 @@ public class Physics {
 		vy=r.vy;
 		gravity = -getg(x, y);
 		m=r.getMass();
-		drag=r.getDrag();
+		if(tri(x,y)>=up+R) {
+			drag=0;
+		}
+		else {
+			drag=r.getDrag();
+			drag=drag*(R+up-tri(x,y))/up;
+		}
 		theta=r.getTheta();
 		tr=r.getTr();
 		

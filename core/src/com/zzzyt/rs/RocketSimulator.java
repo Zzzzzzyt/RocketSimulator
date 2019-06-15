@@ -2,12 +2,17 @@ package com.zzzyt.rs;
 
 import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
+import com.badlogic.gdx.graphics.glutils.ShapeRenderer.ShapeType;
+import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.zzzyt.rs.data.Rocket;
+import com.zzzyt.rs.phy.Physics;
 import com.zzzyt.rs.phy.Simulator;
 import com.zzzyt.rs.rocket.F9B5;
 
@@ -15,6 +20,8 @@ public class RocketSimulator extends ApplicationAdapter {
 	SpriteBatch batch;
 	Sprite rocket;
 	OrthographicCamera cam;
+	ShapeRenderer shape;
+	FitViewport viewport;
 	
 	float h,w;
 	
@@ -27,6 +34,8 @@ public class RocketSimulator extends ApplicationAdapter {
 		h=Gdx.graphics.getHeight();
 		w=Gdx.graphics.getWidth();
 		
+		shape=new ShapeRenderer();
+		
 		batch = new SpriteBatch();
 		rocket = new Sprite(new Texture(Gdx.files.internal("rocket.png")));
 		rocket.setRegion(0, 0, 23, 44);
@@ -34,11 +43,14 @@ public class RocketSimulator extends ApplicationAdapter {
 
 		r = F9B5.get();
 		last = -10000d;
-		sim=new Simulator(this,30);
+		sim=new Simulator(this,30,1000);
 		
-		cam=new OrthographicCamera(w,h);
+		cam=new OrthographicCamera(w*4,h*4);
 		cam.position.set(cam.viewportWidth/2f,cam.viewportHeight/2f,0);
+		cam.translate(-w*2,-h*2);
 		cam.update();
+		
+		viewport=new FitViewport(w*4,h*4,cam);
 	}
 
 	@Override
@@ -48,11 +60,18 @@ public class RocketSimulator extends ApplicationAdapter {
 		cam.update();
 		batch.setProjectionMatrix(cam.combined);
 		
-		rocket.setPosition((float)(r.x/1000), (float)((r.y-6378000)/1000));
-		rocket.setRotation((float)(r.getTheta()/(2*Math.PI)*360)-90);
+		rocket.setPosition((float)(r.x/10000), (float)(r.y/10000));
+		rocket.setRotation((float)(r.getVAngle()/(2*Math.PI)*360)-90);
 		
 		Gdx.gl.glClearColor(0, 0, 0, 1);
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT | GL20.GL_DEPTH_BUFFER_BIT | (Gdx.graphics.getBufferFormat().coverageSampling?GL20.GL_COVERAGE_BUFFER_BIT_NV:0));
+		
+		shape.setProjectionMatrix(cam.combined);
+		shape.begin(ShapeType.Filled);
+		shape.setColor(new Color(0f,0.2f,0.5f,1f));
+		shape.ellipse(-(float)Physics.R/10000, -(float)Physics.R/10000, (float)Physics.R*2/10000, (float)Physics.R*2/10000);
+		shape.end();
+		
 		batch.begin();
 		rocket.draw(batch);
 		batch.end();
@@ -62,5 +81,10 @@ public class RocketSimulator extends ApplicationAdapter {
 	public void dispose() {
 		batch.dispose();
 		rocket.getTexture().dispose();
+	}
+	
+	@Override
+	public void resize(int width,int height) {
+		viewport.update(width,height);
 	}
 }

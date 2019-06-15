@@ -38,8 +38,8 @@ public class F9B5 {
 			public double getDrag(Rocket r) {return 3.3;}
 			public double getTr(Rocket r) {return 0;}
 			public double getTheta(Rocket r) {return 0;}
-			public double getMass(Rocket r) {return 18000;}
-			public double getM0() {return 18000;}
+			public double getMass(Rocket r) {return 17000;}
+			public double getM0() {return 17000;}
 			public double getTime() {return 1E20;}
 		});
 		r.init();
