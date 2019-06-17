@@ -8,14 +8,12 @@ public class Simulator {
 	public boolean stopped;
 	public double speed;
 	private double last;
-	private int cnt;
 	
 	public Simulator(RocketSimulator rs,double fps,double speed){
 		this.fps=fps;
 		this.rs=rs;
 		this.speed=speed;
 		this.stopped=false;
-		cnt=0;
 	}
 	
 	public void sim() {
@@ -27,15 +25,6 @@ public class Simulator {
 				stopped=true;
 				break;
 			}
-		}
-		
-		if(cnt==0) {
-			rs.r.debug();
-			cnt=(int)fps;
-		}
-		else {
-			cnt--;
-		}
-		
+		}		
 	}
 }

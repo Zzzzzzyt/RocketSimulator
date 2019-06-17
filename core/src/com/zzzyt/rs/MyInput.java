@@ -31,6 +31,16 @@ public class MyInput extends InputAdapter {
 		return false;
 	}
 	
+	public boolean keyDown(int keycode) {
+		switch (keycode) {
+		case Input.Keys.SHIFT_RIGHT:
+			rs.focusOn=!rs.focusOn;
+			return true;
+		default:
+			return false;
+		}
+	}
+	
 	MyInput(RocketSimulator rs){
 		super();
 		this.rs=rs;
