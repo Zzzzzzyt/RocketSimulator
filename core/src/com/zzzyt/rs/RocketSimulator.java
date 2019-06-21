@@ -87,7 +87,7 @@ public class RocketSimulator extends ApplicationAdapter{
 		batch.setProjectionMatrix(cam.combined);
 		
 		rocket.setPosition((float)(r.x/1000)-rocket.getWidth()/2, (float)(r.y/1000));
-		rocket.setRotation((float)(r.getVAngle()/(2*Math.PI)*360)-90);
+		rocket.setRotation((float)(Math.atan2(r.vy, r.vx)/(2*Math.PI)*360)-90);
 		
 		shape.begin(ShapeType.Filled);
 		shape.setColor(new Color(1152048384));
@@ -142,6 +142,7 @@ public class RocketSimulator extends ApplicationAdapter{
 		}
 		if(Gdx.input.isKeyPressed(Keys.UP)) {
 			cam.zoom-=zdif;
+			if(cam.zoom<0)cam.zoom=0;
 		}
 		if(Gdx.input.isKeyPressed(Keys.DOWN)) {
 			cam.zoom+=zdif;

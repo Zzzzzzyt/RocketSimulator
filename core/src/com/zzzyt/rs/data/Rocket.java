@@ -25,11 +25,6 @@ public class Rocket {
 		nextTime=stages.get(0).getTime();
 	}
 	
-	public double getVAngle() {
-		if(vx<0)return Math.atan(vy/vx)+Math.PI;
-		return Math.atan(vy/vx);
-	}
-	
 	public double getMass() {
 		return tmpmass+stages.get(stage).getMass(this);
 	}
