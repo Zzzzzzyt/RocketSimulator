@@ -39,7 +39,7 @@ public class F9B5 {
 			public double getTr(Rocket r) {return 0;}
 			public double getTheta(Rocket r) {return 0;}
 			public double getMass(Rocket r) {return 17000;}
-			public double getM0() {return 17000;}
+			public double getM0() {return 8000;}
 			public double getTime() {return 1E20;}
 		});
 		r.init();

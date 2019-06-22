@@ -7,7 +7,7 @@ public class Physics {
 	public final static double M = 5.977028E24d;
 	public final static double GM = 3.989236E14d;
 	public final static double R = 6378000;
-	public final static double up = 80000;
+	public final static double up = 100000;
 	
 	public final static double dt=0.05;
 	

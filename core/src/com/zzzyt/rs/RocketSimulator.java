@@ -21,6 +21,7 @@ import com.zzzyt.rs.rocket.F9B5;
 public class RocketSimulator extends ApplicationAdapter{
 	SpriteBatch batch;
 	Sprite rocket;
+	Sprite rocketi;
 	OrthographicCamera cam;
 	ShapeRenderer shape;
 	FitViewport viewport;
@@ -46,8 +47,12 @@ public class RocketSimulator extends ApplicationAdapter{
 		
 		batch = new SpriteBatch();
 		rocket = new Sprite(new Texture(Gdx.files.internal("rocket.png")));
-		rocket.setRegion(0, 0, 23, 44);
+		rocket.setRegion(0, 0, 23, 45);
 		rocket.setOriginCenter();
+		
+		rocketi = new Sprite(new Texture(Gdx.files.internal("rocketi.png")));
+		rocketi.setRegion(0, 0, 32, 32);
+		rocketi.setOriginCenter();
 
 		r = F9B5.get();
 		last = -10000d;
@@ -56,7 +61,7 @@ public class RocketSimulator extends ApplicationAdapter{
 		cam=new OrthographicCamera(w,h);
 		cam.position.set(cam.viewportWidth/2f,cam.viewportHeight/2f,0);
 		cam.setToOrtho(false);
-		cam.translate(0,(float)Physics.R/1000);
+		cam.translate(0,(float)Physics.R);
 		cam.update();
 		
 		viewport=new FitViewport(w,h,cam);
@@ -75,7 +80,7 @@ public class RocketSimulator extends ApplicationAdapter{
 		if(!sim.stopped)sim.sim();
 		
 		if(focusOn) {
-			cam.position.set((float)(r.x/1000), (float)(r.y/1000), 0);
+			cam.position.set((float)r.x, (float)r.y, 0);
 		}
 		
 		Gdx.gl.glClearColor(0, 0, 0, 1);
@@ -86,23 +91,39 @@ public class RocketSimulator extends ApplicationAdapter{
 		shape.setProjectionMatrix(cam.combined);
 		batch.setProjectionMatrix(cam.combined);
 		
-		rocket.setPosition((float)(r.x/1000)-rocket.getWidth()/2, (float)(r.y/1000));
-		rocket.setRotation((float)(Math.atan2(r.vy, r.vx)/(2*Math.PI)*360)-90);
+		shape.begin(ShapeType.Filled);
+		shape.setColor(new Color(0,0,0.3f,1));
+		shape.circle(0, 0, (float)(Physics.R+Physics.up));
+		shape.end();
 		
 		shape.begin(ShapeType.Filled);
-		shape.setColor(new Color(1152048384));
-		shape.ellipse(-(float)Physics.R/1000, -(float)Physics.R/1000, (float)Physics.R*2/1000, (float)Physics.R*2/1000);
+		shape.setColor(new Color(0.1f,0.2f,0.6f,1));
+		shape.circle(0, 0, (float)(Physics.R+Physics.up/2));
+		shape.end();
+		
+		shape.begin(ShapeType.Filled);
+		shape.setColor(new Color(0,0.5f,0,1));
+		shape.circle(0, 0, (float)Physics.R);
 		shape.end();
 		
 		batch.begin();
-		rocket.draw(batch);
+		if(cam.zoom<=10) {
+			rocket.setPosition((float)r.x-rocket.getWidth()/2, (float)r.y);
+			rocket.setRotation((float)(Math.atan2(r.vy, r.vx)/(2*Math.PI)*360)-90);
+			rocket.draw(batch);
+		}
+		else {
+			rocketi.setPosition((float)r.x-rocket.getWidth()/2, (float)r.y);
+			rocketi.setScale(cam.zoom/2);
+			rocketi.draw(batch);
+		}
 		batch.end();
 		
 		shape.begin(ShapeType.Line);
 		shape.setColor(new Color(-16777216));
 		tmp=new Vector3(10,10,0);
 		cam.unproject(tmp);
-		shape.line(tmp.x, tmp.y, tmp.x+1000, tmp.y);
+		shape.line(tmp.x, tmp.y, tmp.x+1000000, tmp.y);
 		shape.end();
 		
 		if(fcd<=0) {
@@ -128,17 +149,20 @@ public class RocketSimulator extends ApplicationAdapter{
 	
 	private void inputs() {
 		double zdif=1;
-		if(cam.zoom<0.1) {
-			zdif=0.001;
-		}
-		else if(cam.zoom<1) {
+		if(cam.zoom<2) {
 			zdif=0.01;
 		}
-		else if(cam.zoom<5) {
-			zdif=0.1;
+		else if(cam.zoom<30) {
+			zdif=0.5;
+		}
+		else if(cam.zoom<500) {
+			zdif=10;
+		}
+		else if(cam.zoom<30000){
+			zdif=200;
 		}
 		else {
-			zdif=1;
+			zdif=1000;
 		}
 		if(Gdx.input.isKeyPressed(Keys.UP)) {
 			cam.zoom-=zdif;
@@ -149,13 +173,13 @@ public class RocketSimulator extends ApplicationAdapter{
 		}
 		
 		double sdif=1;
-		if(sim.speed<10) {
+		if(sim.speed<=10) {
 			sdif=0.1;
 		}
-		else if(sim.speed<50) {
+		else if(sim.speed<=50) {
 			sdif=1;
 		}
-		else if(sim.speed<200) {
+		else if(sim.speed<=200) {
 			sdif=5;
 		}
 		else {
