@@ -1,20 +1,26 @@
 package com.zzzyt.rs.data;
 
 public abstract class Stage {
-	public abstract double getM0();
+	public Rocket r;
+	public double f;
 	
-	public abstract double getTime();
+	public abstract double getDryMass();
 	
-	public abstract double getDrag(Rocket r);
-
-	public abstract double getTr(Rocket r);
-
-	public abstract double getTheta(Rocket r);
-
-	public abstract double getMass(Rocket r);
+	public abstract double getFuelMass();
 	
-	public Stage() {
-		
+	public double getTime() {return -1;};
+	
+	public abstract double getDrag();
+
+	public abstract double getThrust();
+
+	public abstract double getTheta();
+
+	public abstract double getFlow();
+	
+	public Stage(Rocket r) {
+		this.r=r;
+		this.f=getFuelMass();
 	}
 
 }

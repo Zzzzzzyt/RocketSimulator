@@ -2,7 +2,6 @@ package com.zzzyt.rs;
 
 import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
@@ -16,16 +15,16 @@ import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.zzzyt.rs.data.Rocket;
 import com.zzzyt.rs.phy.Physics;
 import com.zzzyt.rs.phy.Simulator;
-import com.zzzyt.rs.rocket.F9B5;
+import com.zzzyt.rs.rocket.F9B5manual;
 
 public class RocketSimulator extends ApplicationAdapter{
 	SpriteBatch batch;
 	Sprite rocket;
 	Sprite rocketi;
-	OrthographicCamera cam;
+	public OrthographicCamera cam;
 	ShapeRenderer shape;
 	FitViewport viewport;
-	MyInput input;
+	public Controller control;
 	
 	float h,w;
 	
@@ -36,7 +35,7 @@ public class RocketSimulator extends ApplicationAdapter{
 
 	public boolean focusOn;
 	
-	private Vector3 tmp;
+	private Vector3 tmp,tmp2;
 	
 	@Override
 	public void create() {
@@ -54,7 +53,7 @@ public class RocketSimulator extends ApplicationAdapter{
 		rocketi.setRegion(0, 0, 32, 32);
 		rocketi.setOriginCenter();
 
-		r = F9B5.get();
+		r = F9B5manual.get(this);
 		last = -10000d;
 		sim=new Simulator(this,30,1);
 		
@@ -66,8 +65,8 @@ public class RocketSimulator extends ApplicationAdapter{
 		
 		viewport=new FitViewport(w,h,cam);
 		
-		input=new MyInput(this);
-		Gdx.input.setInputProcessor(input);
+		control=new Controller(this);
+		Gdx.input.setInputProcessor(control);
 		
 		focusOn=true;
 		fcd=0;
@@ -75,7 +74,7 @@ public class RocketSimulator extends ApplicationAdapter{
 
 	@Override
 	public void render() {
-		inputs();
+		control.handle();
 		
 		if(!sim.stopped)sim.sim();
 		
@@ -113,17 +112,50 @@ public class RocketSimulator extends ApplicationAdapter{
 			rocket.draw(batch);
 		}
 		else {
-			rocketi.setPosition((float)r.x-rocket.getWidth()/2, (float)r.y);
+			rocketi.setPosition((float)r.x-rocketi.getWidth()/2, (float)r.y-rocketi.getHeight()/2);
+			rocketi.setRotation((float)(Math.atan2(r.vy, r.vx)/(2*Math.PI)*360)-90);
 			rocketi.setScale(cam.zoom/2);
 			rocketi.draw(batch);
 		}
 		batch.end();
 		
-		shape.begin(ShapeType.Line);
-		shape.setColor(new Color(-16777216));
+		float len=0;
+		if(cam.zoom<0.2) {
+			len=10;
+		}
+		else if(cam.zoom<3) {
+			len=100;
+		}
+		else if(cam.zoom<30) {
+			len=1000;
+		}
+		else if(cam.zoom<300) {
+			len=10000;
+		}
+		else if(cam.zoom<3000) {
+			len=100000;
+		}
+		else {
+			len=1000000;
+		}
 		tmp=new Vector3(10,10,0);
+		tmp2=new Vector3(12,8,0);
 		cam.unproject(tmp);
-		shape.line(tmp.x, tmp.y, tmp.x+1000000, tmp.y);
+		cam.unproject(tmp2);
+		
+		shape.begin(ShapeType.Filled);
+		shape.setColor(new Color(-16777216));
+		shape.rect(tmp.x, tmp.y, len, tmp.y-tmp2.y);
+		shape.end();
+		
+		shape.begin(ShapeType.Filled);
+		shape.setColor(new Color(-16777216));
+		shape.rect(tmp.x, tmp2.y, tmp2.x-tmp.x, tmp.y-tmp2.y);
+		shape.end();
+		
+		shape.begin(ShapeType.Filled);
+		shape.setColor(new Color(-16777216));
+		shape.rect(tmp.x+len-(tmp2.x-tmp.x), tmp2.y, tmp2.x-tmp.x, tmp.y-tmp2.y);
 		shape.end();
 		
 		if(fcd<=0) {
@@ -147,51 +179,5 @@ public class RocketSimulator extends ApplicationAdapter{
 		viewport.update(width,height);
 	}
 	
-	private void inputs() {
-		double zdif=1;
-		if(cam.zoom<2) {
-			zdif=0.01;
-		}
-		else if(cam.zoom<30) {
-			zdif=0.5;
-		}
-		else if(cam.zoom<500) {
-			zdif=10;
-		}
-		else if(cam.zoom<30000){
-			zdif=200;
-		}
-		else {
-			zdif=1000;
-		}
-		if(Gdx.input.isKeyPressed(Keys.UP)) {
-			cam.zoom-=zdif;
-			if(cam.zoom<0)cam.zoom=0;
-		}
-		if(Gdx.input.isKeyPressed(Keys.DOWN)) {
-			cam.zoom+=zdif;
-		}
-		
-		double sdif=1;
-		if(sim.speed<=10) {
-			sdif=0.1;
-		}
-		else if(sim.speed<=50) {
-			sdif=1;
-		}
-		else if(sim.speed<=200) {
-			sdif=5;
-		}
-		else {
-			sdif=20;
-		}
-		if(Gdx.input.isKeyPressed(Keys.LEFT)) {
-			sim.speed-=sdif;
-			if(sim.speed<0)sim.speed=0;
-		}
-		if(Gdx.input.isKeyPressed(Keys.RIGHT)) {
-			sim.speed+=sdif;
-		}
-		
-	}
+	
 }

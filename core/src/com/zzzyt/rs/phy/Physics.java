@@ -1,6 +1,7 @@
 package com.zzzyt.rs.phy;
 
 import com.zzzyt.rs.data.Rocket;
+import com.zzzyt.rs.data.Stage;
 
 public class Physics {
 	public final static double G = 6.67428E-11d;
@@ -12,6 +13,7 @@ public class Physics {
 	public final static double dt=0.05;
 	
 	static double gravity,drag,ax,ay,tr,theta,m,flow,x,y,vx,vy;
+	static Stage stg;
 	
 	public static boolean eq(double x, double y) {
 		return Math.abs(x - y) < 1E-6;
@@ -26,6 +28,7 @@ public class Physics {
 	}
 	
 	public static void sim(Rocket r) {
+		stg=r.stages.get(r.stage);
 		x=r.x;
 		y=r.y;
 		vx=r.vx;
@@ -39,16 +42,19 @@ public class Physics {
 			drag=r.getDrag();
 			drag=drag*(R+up-tri(x,y))/up;
 		}
+		drag = -drag * tri(vx, vy) / m;
+		
 		theta=r.getTheta();
 		tr=r.getTr();
+		if(stg.f<=0)tr=0;
 		
 		ay = gravity / tri(x, y) * y;
 		ax = gravity / tri(x, y) * x;
 		ax += r.getTr() / r.getMass() * Math.cos(theta);
 		ay += r.getTr() / m * Math.sin(theta);
-		drag = -drag * tri(vx, vy) / m;
 		ax += vx * drag;
 		ay += vy * drag;
+		
 		y += (2 * vy + ay * dt) * dt / 2;
 		x += (2 * vx + ax * dt) * dt / 2;
 		vy += ay * dt;
@@ -59,10 +65,9 @@ public class Physics {
 		r.y=y;
 		r.vx=vx;
 		r.vy=vy;
+		if(stg.f>0)stg.f-=stg.getFlow()*dt;
 
-		if(r.t>=r.nextTime) {
-			r.stage();
-		}
+		r.checkStage();
 		
 		r.guide();
 	}
