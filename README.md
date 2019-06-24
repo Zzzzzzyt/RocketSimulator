@@ -7,10 +7,13 @@ DOWN  - Zoom out
 LEFT  - Simulation speed down
 RIGHT - Simulation speed up
 RSHIFT- Toggle focus on rocket
+SPACE - Trigger stage
 A     - Thrust vector rotate counterclockwise
 D     - Thrust vector rotate clockwise
-W     - Throttle up
-D     - Throttle down
+LSHIFT- Throttle up
+LCTRL - Throttle down
+Z     - Minimize throttle
+X     - Maximize throttle
 
 Drag with mouse right key - Drag the view
 ```
@@ -51,4 +54,4 @@ Payload:
 
 The effect of thrust changing as atmospheric pressure decreases is not accounted.
 
-It will enter an ugly orbit, because I'm lazy to do another second stage burn...
+The rocket is set to manual control mode by default.

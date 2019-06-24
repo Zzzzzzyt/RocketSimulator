@@ -10,9 +10,6 @@ public class Controller extends InputAdapter {
 	RocketSimulator rs;
 	Vector3 tp,tp2;
 	
-	public double theta;
-	public double tr;
-	
 	public boolean touchDown (int screenX, int screenY, int pointer, int button) {
 		if(button!=Input.Buttons.RIGHT)return false;
 		tp=new Vector3(screenX,screenY,0);
@@ -40,6 +37,9 @@ public class Controller extends InputAdapter {
 		switch (keycode) {
 		case Input.Keys.SHIFT_RIGHT:
 			rs.focusOn=!rs.focusOn;
+			return true;
+		case Input.Keys.SPACE:
+			if(rs.r.stage<rs.r.stages.size()-1)rs.r.stage();
 			return true;
 		default:
 			return false;
@@ -99,25 +99,38 @@ public class Controller extends InputAdapter {
 		}
 		
 		if(Gdx.input.isKeyPressed(Keys.A)) {
-			theta+=0.01;
+			rs.r.gimbal+=0.01;
+			if(rs.r.gimbal>0.2)rs.r.gimbal=0.2;
 		}
 		if(Gdx.input.isKeyPressed(Keys.D)) {
-			theta-=0.01;
+			rs.r.gimbal-=0.01;
+			if(rs.r.gimbal<-0.2)rs.r.gimbal=-0.2;
 		}
-		if(Gdx.input.isKeyPressed(Keys.W)) {
-			tr+=0.01;
-			if(tr<0)tr=0;
+		if(Gdx.input.isKeyPressed(Keys.Q)) {
+			rs.r.dir+=0.01;
 		}
-		if(Gdx.input.isKeyPressed(Keys.S)) {
-			tr-=0.01;
-			if(tr>1)tr=1;
+		if(Gdx.input.isKeyPressed(Keys.E)) {
+			rs.r.dir-=0.01;
+		}
+		
+		if(Gdx.input.isKeyPressed(Keys.SHIFT_LEFT)) {
+			rs.r.throttle+=0.01;
+			if(rs.r.throttle<0)rs.r.throttle=0;
+		}
+		if(Gdx.input.isKeyPressed(Keys.CONTROL_LEFT)) {
+			rs.r.throttle-=0.01;
+			if(rs.r.throttle>1)rs.r.throttle=1;
+		}
+		if(Gdx.input.isKeyPressed(Keys.Z)) {
+			rs.r.throttle=0;
+		}
+		if(Gdx.input.isKeyPressed(Keys.X)) {
+			rs.r.throttle=1;
 		}
 	}
 	
 	Controller(RocketSimulator rs){
 		super();
 		this.rs=rs;
-		this.theta=Math.PI/2;
-		this.tr=1;
 	}
 }

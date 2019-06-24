@@ -50,8 +50,8 @@ public class Physics {
 		
 		ay = gravity / tri(x, y) * y;
 		ax = gravity / tri(x, y) * x;
-		ax += r.getTr() / r.getMass() * Math.cos(theta);
-		ay += r.getTr() / m * Math.sin(theta);
+		ax += tr / m  * Math.cos(theta);
+		ay += tr / m * Math.sin(theta);
 		ax += vx * drag;
 		ay += vy * drag;
 		
@@ -65,10 +65,9 @@ public class Physics {
 		r.y=y;
 		r.vx=vx;
 		r.vy=vy;
-		if(stg.f>0)stg.f-=stg.getFlow()*dt;
+		if(stg.f>0)stg.f-=stg.getFlow()*r.throttle*dt;
 
 		r.checkStage();
-		
 		r.guide();
 	}
 

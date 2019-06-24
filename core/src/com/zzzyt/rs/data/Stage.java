@@ -14,9 +14,11 @@ public abstract class Stage {
 
 	public abstract double getThrust();
 
-	public abstract double getTheta();
-
 	public abstract double getFlow();
+	
+	public double getDir() {
+		return Math.atan2(r.vx, r.vy);
+	}
 	
 	public Stage(Rocket r) {
 		this.r=r;
