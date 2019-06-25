@@ -107,10 +107,10 @@ public class Controller extends InputAdapter {
 			if(rs.r.gimbal<-0.2)rs.r.gimbal=-0.2;
 		}
 		if(Gdx.input.isKeyPressed(Keys.Q)) {
-			rs.r.dir+=0.01;
+			rs.r.dir+=0.05;
 		}
 		if(Gdx.input.isKeyPressed(Keys.E)) {
-			rs.r.dir-=0.01;
+			rs.r.dir-=0.05;
 		}
 		
 		if(Gdx.input.isKeyPressed(Keys.SHIFT_LEFT)) {

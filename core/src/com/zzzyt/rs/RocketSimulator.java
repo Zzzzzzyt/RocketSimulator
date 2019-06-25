@@ -47,7 +47,7 @@ public class RocketSimulator extends ApplicationAdapter{
 		h=Gdx.graphics.getHeight();
 		w=Gdx.graphics.getWidth();
 		
-		r = RocketManager.get("F9B5 manual");
+		r = RocketManager.get("F9B5 auto 2");
 		sim=new Simulator(this,30,1);
 		
 		shape=new ShapeRenderer();
