@@ -2,7 +2,7 @@ package com.zzzyt.rs.rocket;
 
 import com.zzzyt.rs.data.Rocket;
 import com.zzzyt.rs.data.Stage;
-import com.zzzyt.rs.phy.Physics;
+import com.zzzyt.rs.phy.Phy;
 
 public class F9B5auto extends Rocket{
 	public void guide() {
@@ -15,7 +15,7 @@ public class F9B5auto extends Rocket{
 	}
 	
 	public F9B5auto() {
-		super("Falcon 9 Block 5 Auto #1", 0, 0, Physics.R + 10, 0, 0, 0,true);
+		super("Falcon 9 Block 5 Auto #1", 0, 0, Phy.R + 10, 0, 0, 0,true);
 
 		this.stages.add(new Stage(this) {
 			public double getDrag() {return 3.3;}

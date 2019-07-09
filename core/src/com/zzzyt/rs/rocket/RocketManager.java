@@ -8,7 +8,7 @@ public class RocketManager {
 		if(name.equals("F9B5 auto"))return new F9B5auto();
 		if(name.equals("F9B5 auto 2"))return new F9B5auto2();
 		if(name.equals("F9B5 manual"))return new F9B5manual();
-		if(name.equals("DDF"))return new DeepDarkFantasies();
+		if(name.equals("DDF"))return new DeepDarkFantasy();
 		return null;
 	}
 	

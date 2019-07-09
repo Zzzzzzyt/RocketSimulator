@@ -1,9 +1,10 @@
 package com.zzzyt.rs.phy;
 
+import com.badlogic.gdx.Gdx;
 import com.zzzyt.rs.data.Rocket;
 import com.zzzyt.rs.data.Stage;
 
-public class Physics {
+public class Phy {
 	public final static double G = 6.67428E-11d;
 	public final static double M = 5.977028E24d;
 	public final static double GM = 3.989236E14d;
@@ -27,7 +28,7 @@ public class Physics {
 		return Math.sqrt(x * x + y * y);
 	}
 	
-	public static void sim(Rocket r) {
+	public static boolean sim(Rocket r) {
 		stg=r.stages.get(r.stage);
 		x=r.x;
 		y=r.y;
@@ -45,8 +46,7 @@ public class Physics {
 		drag = -drag * tri(vx, vy) / m;
 		
 		theta=r.getTheta();
-		tr=r.getTr();
-		if(stg.f<=0)tr=0;
+		tr=r.getThrust();
 		
 		ay = gravity / tri(x, y) * y;
 		ax = gravity / tri(x, y) * x;
@@ -67,8 +67,21 @@ public class Physics {
 		r.vy=vy;
 		if(stg.f>0)stg.f-=stg.getFlow()*r.throttle*dt;
 
+		if (Phy.tri(r.x, r.y)-Phy.R<1) {
+			if(Phy.tri(r.vx, r.vy)>10) {
+				Gdx.app.log("Rocket", String.format("Crash! t=%.2f", r.t));
+				return false;
+			}
+			else {
+				r.x*=(Phy.R+1)/Phy.tri(r.x, r.y);
+				r.y*=(Phy.R+1)/Phy.tri(r.x, r.y);
+				r.vx=0;
+				r.vy=0;
+			}
+		}
+		
 		r.checkStage();
 		r.guide();
+		return true;
 	}
-
 }

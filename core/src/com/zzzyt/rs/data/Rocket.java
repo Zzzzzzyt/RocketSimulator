@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.badlogic.gdx.Gdx;
-import com.zzzyt.rs.phy.Physics;
+import com.zzzyt.rs.phy.Phy;
 
 public class Rocket {
 	public String name;
@@ -32,7 +32,8 @@ public class Rocket {
 		return tmpmass+stages.get(stage).getDryMass()+stages.get(stage).f;
 	}
 	
-	public double getTr() {
+	public double getThrust() {
+		if(stages.get(stage).f<=0)return 0;
 		return stages.get(stage).getThrust()*throttle;
 	}
 	
@@ -74,7 +75,7 @@ public class Rocket {
 		this.name = name;
 		this.t = 0;
 		this.x = 0;
-		this.y = Physics.R;
+		this.y = Phy.R;
 		this.vx = 0;
 		this.vy = 0;
 		this.stage = 0;

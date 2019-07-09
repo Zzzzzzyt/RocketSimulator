@@ -1,6 +1,5 @@
 package com.zzzyt.rs.phy;
 
-import com.badlogic.gdx.Gdx;
 import com.zzzyt.rs.RocketSimulator;
 
 public class Simulator {
@@ -20,12 +19,10 @@ public class Simulator {
 	public void sim() {
 		last=rs.r.t;
 		while(rs.r.t<last+1/fps*speed) {
-			if (Physics.tri(rs.r.x, rs.r.y)-Physics.R<1) {
-				Gdx.app.log("Rocket", String.format("Crash! t=%.2f", rs.r.t));
+			if(!Phy.sim(rs.r)) {
 				stopped=true;
 				break;
 			}
-			Physics.sim(rs.r);
 		}		
 	}
 }

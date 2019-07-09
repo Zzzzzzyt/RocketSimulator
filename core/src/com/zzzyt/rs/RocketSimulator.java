@@ -14,7 +14,7 @@ import com.badlogic.gdx.graphics.glutils.ShapeRenderer.ShapeType;
 import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.zzzyt.rs.data.Rocket;
-import com.zzzyt.rs.phy.Physics;
+import com.zzzyt.rs.phy.Phy;
 import com.zzzyt.rs.phy.Simulator;
 import com.zzzyt.rs.rocket.RocketManager;
 
@@ -27,11 +27,11 @@ public class RocketSimulator extends ApplicationAdapter{
 	public OrthographicCamera cam;
 	ShapeRenderer shape;
 	FitViewport viewport;
-	public Controller control;
 	
 	float h,w;
 	
-	Simulator sim;
+	public Controller control;
+	public Simulator sim;
 	public Rocket r;
 	
 	private int fcd;
@@ -43,6 +43,7 @@ public class RocketSimulator extends ApplicationAdapter{
 	@Override
 	public void create() {
 		Gdx.app.setLogLevel(Application.LOG_DEBUG);
+		Gdx.input.setInputProcessor(control);
 		
 		h=Gdx.graphics.getHeight();
 		w=Gdx.graphics.getWidth();
@@ -53,28 +54,27 @@ public class RocketSimulator extends ApplicationAdapter{
 		shape=new ShapeRenderer();
 		
 		batch = new SpriteBatch();
-		rocket = new Sprite(new Texture(Gdx.files.internal("rocket.png")));
+		rocket = new Sprite(new Texture("rocket.png"));
 		rocket.setRegion(0, 0, 23, 45);
+		rocket.setSize(23, 45);
 		rocket.setOrigin(rocket.getWidth()/2,0);
 		
-		rocketi = new Sprite(new Texture(Gdx.files.internal("rocketi.png")));
+		
+		rocketi = new Sprite(new Texture("rocketi.png"));
 		rocketi.setRegion(0, 0, 32, 32);
 		rocketi.setOriginCenter();
 
-		exhaust = new Sprite(new Texture(Gdx.files.internal("exhaust.png")));
+		exhaust = new Sprite(new Texture("exhaust.png"));
 		exhaust.setRegion(0,0,11,32);
 		exhaust.setOrigin(exhaust.getWidth()/2, exhaust.getHeight());
 		
 		cam=new OrthographicCamera(w,h);
 		cam.position.set(cam.viewportWidth/2f,cam.viewportHeight/2f,0);
 		cam.setToOrtho(false);
-		cam.translate(0,(float)Physics.R);
+		cam.translate(0,(float)Phy.R);
 		cam.update();
 		
 		viewport=new FitViewport(w,h,cam);
-		
-		control=new Controller(this);
-		Gdx.input.setInputProcessor(control);
 		
 		focusOn=true;
 		fcd=0;
@@ -100,17 +100,17 @@ public class RocketSimulator extends ApplicationAdapter{
 		
 		shape.begin(ShapeType.Filled);
 		shape.setColor(new Color(0,0,0.3f,1));
-		shape.circle(0, 0, (float)(Physics.R+Physics.up));
+		shape.circle(0, 0, (float)(Phy.R+Phy.up));
 		shape.end();
 		
 		shape.begin(ShapeType.Filled);
 		shape.setColor(new Color(0.1f,0.2f,0.6f,1));
-		shape.circle(0, 0, (float)(Physics.R+Physics.up/2));
+		shape.circle(0, 0, (float)(Phy.R+Phy.up/2));
 		shape.end();
 		
 		shape.begin(ShapeType.Filled);
 		shape.setColor(new Color(0,0.5f,0,1));
-		shape.circle(0, 0, (float)Physics.R);
+		shape.circle(0, 0, (float)Phy.R);
 		shape.end();
 		
 		batch.begin();
@@ -126,10 +126,10 @@ public class RocketSimulator extends ApplicationAdapter{
 			rocketi.draw(batch);
 		}
 		
-		if(r.getTr()>0) {
+		if(r.getThrust()>0) {
 			exhaust.setPosition((float)r.x-exhaust.getWidth()/2, (float)r.y-exhaust.getHeight());
 			exhaust.setRotation((float)(r.getTheta()/(2*Math.PI)*360)-90);
-			exhaust.setScale((float)(Math.cbrt(r.getTr())/200));
+			exhaust.setScale((float)(Math.cbrt(r.getThrust())/200));
 			exhaust.draw(batch);
 		}
 		
@@ -182,7 +182,7 @@ public class RocketSimulator extends ApplicationAdapter{
 		shape.end();
 		
 		if(fcd<=0) {
-			Gdx.app.debug("Rocket", String.format("t=%.1f x=%.2f y=%.2f vx=%.2f vy=%.2f m=%.0f", r.t,r.x,r.y,r.vx,r.vy,r.getMass())+"\n\t"+String.format("sp=%.2f zm=%.2f tr=%.2f f=%.2f h=%.1f drag=%.2f th=%.2f",sim.speed,cam.zoom,r.throttle,r.stages.get(r.stage).f,Physics.tri(r.x,r.y)-Physics.R,Physics.tri(r.x,r.y)>=Physics.R+Physics.up?0:r.getDrag()*(Physics.R+Physics.up-Physics.tri(r.x,r.y))/Physics.up,r.getTheta()/Math.PI));
+			Gdx.app.debug("Rocket", String.format("t=%.1f x=%.2f y=%.2f vx=%.2f vy=%.2f m=%.0f", r.t,r.x,r.y,r.vx,r.vy,r.getMass())+"\n\t"+String.format("sp=%.2f zm=%.2f tr=%.2f f=%.2f h=%.1f drag=%.2f th=%.2f",sim.speed,cam.zoom,r.throttle,r.stages.get(r.stage).f,Phy.tri(r.x,r.y)-Phy.R,Phy.tri(r.x,r.y)>=Phy.R+Phy.up?0:r.getDrag()*(Phy.R+Phy.up-Phy.tri(r.x,r.y))/Phy.up,r.getTheta()/Math.PI));
 			fcd=30;
 		}
 		else {
@@ -200,6 +200,4 @@ public class RocketSimulator extends ApplicationAdapter{
 	public void resize(int width,int height) { 
 		viewport.update(width,height);
 	}
-	
-	
 }

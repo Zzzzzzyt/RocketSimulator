@@ -2,11 +2,11 @@ package com.zzzyt.rs.rocket;
 
 import com.zzzyt.rs.data.Rocket;
 import com.zzzyt.rs.data.Stage;
-import com.zzzyt.rs.phy.Physics;
+import com.zzzyt.rs.phy.Phy;
 
 public class F9B5manual extends Rocket{
 	public F9B5manual() {
-		super("Falcon 9 Block 5 Manual", 0, 0, Physics.R + 10, 0, 0, 0,false);
+		super("Falcon 9 Block 5 Manual", 0, 0, Phy.R + 10, 0, 0, 0,false);
 
 		this.stages.add(new Stage(this) {
 			public double getDrag() {return 3.3;}
