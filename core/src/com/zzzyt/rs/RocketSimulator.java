@@ -7,11 +7,12 @@ import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer.ShapeType;
-import com.badlogic.gdx.math.Vector3;
+import com.badlogic.gdx.math.Matrix4;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.zzzyt.rs.data.Rocket;
 import com.zzzyt.rs.phy.Phy;
@@ -19,13 +20,17 @@ import com.zzzyt.rs.phy.Simulator;
 import com.zzzyt.rs.rocket.RocketManager;
 
 public class RocketSimulator extends ApplicationAdapter{
+	public static RocketSimulator rs;
+	
 	SpriteBatch batch;
 	Sprite rocket;
 	Sprite rocketi;
 	Sprite exhaust;
 	
+	Matrix4 defaultMat;
 	public OrthographicCamera cam;
 	ShapeRenderer shape;
+	BitmapFont font;
 	FitViewport viewport;
 	
 	float h,w;
@@ -38,8 +43,6 @@ public class RocketSimulator extends ApplicationAdapter{
 
 	public boolean focusOn;
 	
-	private Vector3 tmp,tmp2;
-	
 	@Override
 	public void create() {
 		Gdx.app.setLogLevel(Application.LOG_DEBUG);
@@ -48,17 +51,20 @@ public class RocketSimulator extends ApplicationAdapter{
 		h=Gdx.graphics.getHeight();
 		w=Gdx.graphics.getWidth();
 		
-		r = RocketManager.get("F9B5 auto 2");
-		sim=new Simulator(this,30,1);
+		r = RocketManager.get("DDF");
+		sim=new Simulator(30,1);
+		
+		font=new BitmapFont(Gdx.files.internal("font/debug.fnt"),Gdx.files.internal("font/debug.png"),false);
+		font.setColor(Color.WHITE);
 		
 		shape=new ShapeRenderer();
-		
+		defaultMat=shape.getProjectionMatrix().cpy();
 		batch = new SpriteBatch();
+		
 		rocket = new Sprite(new Texture("rocket.png"));
 		rocket.setRegion(0, 0, 23, 45);
 		rocket.setSize(23, 45);
 		rocket.setOrigin(rocket.getWidth()/2,0);
-		
 		
 		rocketi = new Sprite(new Texture("rocketi.png"));
 		rocketi.setRegion(0, 0, 32, 32);
@@ -96,7 +102,6 @@ public class RocketSimulator extends ApplicationAdapter{
 		cam.update();
 		
 		shape.setProjectionMatrix(cam.combined);
-		batch.setProjectionMatrix(cam.combined);
 		
 		shape.begin(ShapeType.Filled);
 		shape.setColor(new Color(0,0,0.3f,1));
@@ -113,6 +118,7 @@ public class RocketSimulator extends ApplicationAdapter{
 		shape.circle(0, 0, (float)Phy.R);
 		shape.end();
 		
+		batch.setProjectionMatrix(cam.combined);
 		batch.begin();
 		if(cam.zoom<=10) {
 			rocket.setPosition((float)r.x-rocket.getWidth()/2, (float)r.y);
@@ -132,8 +138,6 @@ public class RocketSimulator extends ApplicationAdapter{
 			exhaust.setScale((float)(Math.cbrt(r.getThrust())/200));
 			exhaust.draw(batch);
 		}
-		
-		
 		batch.end();
 		
 		float len=0;
@@ -161,24 +165,35 @@ public class RocketSimulator extends ApplicationAdapter{
 		else {
 			len=1E8f;
 		}
-		tmp=new Vector3(10,10,0);
-		tmp2=new Vector3(12,8,0);
-		cam.unproject(tmp);
-		cam.unproject(tmp2);
+		
+		batch.setProjectionMatrix(defaultMat);
+		batch.begin();
+		font.draw(batch, "Rocket Name: "+r.name,10,h-10);
+		font.draw(batch, String.format("t=%.1f x=%.2f y=%.2f vx=%.2f vy=%.2f m=%.0f", r.t,r.x,r.y,r.vx,r.vy,r.getMass()), 10,h-30);
+		font.draw(batch,String.format("sp=%.2f zm=%.2f tr=%.2f f=%.2f h=%.1f drag=%.2f th=%.2f",sim.speed,cam.zoom,r.throttle,r.stages.get(r.stage).f,Phy.tri(r.x,r.y)-Phy.R,Phy.tri(r.x,r.y)>=Phy.R+Phy.up?0:r.getDrag()*(Phy.R+Phy.up-Phy.tri(r.x,r.y))/Phy.up,r.getTheta()/Math.PI),10,h-50);
+		if(len>=1000) {
+			font.draw(batch,String.format("%.0fkm", len/1000),20,30);
+		}
+		else {
+			font.draw(batch,String.format("%.0fm", len),20,30);
+		}
+		batch.end();
+		
+		shape.setProjectionMatrix(defaultMat);
 		
 		shape.begin(ShapeType.Filled);
-		shape.setColor(new Color(-16777216));
-		shape.rect(tmp.x, tmp.y, len, tmp.y-tmp2.y);
+		shape.setColor(new Color(1,1,1,1));
+		shape.rect(10, 10, len/cam.zoom, 2);
 		shape.end();
 		
 		shape.begin(ShapeType.Filled);
-		shape.setColor(new Color(-16777216));
-		shape.rect(tmp.x, tmp2.y, tmp2.x-tmp.x, tmp.y-tmp2.y);
+		shape.setColor(new Color(1,1,1,1));
+		shape.rect(10, 10, 2, 5);
 		shape.end();
 		
 		shape.begin(ShapeType.Filled);
-		shape.setColor(new Color(-16777216));
-		shape.rect(tmp.x+len-(tmp2.x-tmp.x), tmp2.y, tmp2.x-tmp.x, tmp.y-tmp2.y);
+		shape.setColor(new Color(1,1,1,1));
+		shape.rect(10+len/cam.zoom-2, 10, 2, 5);
 		shape.end();
 		
 		if(fcd<=0) {
@@ -193,11 +208,30 @@ public class RocketSimulator extends ApplicationAdapter{
 	@Override
 	public void dispose() {
 		batch.dispose();
+		shape.dispose();
 		rocket.getTexture().dispose();
+		rocketi.getTexture().dispose();
+		exhaust.getTexture().dispose();
 	}
 	
 	@Override
 	public void resize(int width,int height) { 
-		viewport.update(width,height);
+		w=width;
+		h=height;
+		float oldzoom=cam.zoom;
+		cam=new OrthographicCamera(w,h);
+		cam.position.set(cam.viewportWidth/2f,cam.viewportHeight/2f,0);
+		cam.setToOrtho(false);
+		cam.zoom=oldzoom;
+		cam.update();
+		viewport=new FitViewport(w,h,cam);
+		ShapeRenderer tmp=new ShapeRenderer();
+		defaultMat=tmp.getProjectionMatrix();
+		tmp.dispose();
+	}
+	
+	public RocketSimulator() {
+		super();
+		RocketSimulator.rs=this;
 	}
 }

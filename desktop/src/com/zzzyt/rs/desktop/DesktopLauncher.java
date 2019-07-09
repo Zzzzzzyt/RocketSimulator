@@ -10,7 +10,7 @@ public class DesktopLauncher {
 		config.foregroundFPS=30;
 		config.backgroundFPS=30;
 		RocketSimulator game=new RocketSimulator();
-		game.control=new DesktopController(game);
+		game.control=new DesktopController();
 		new LwjglApplication(game, config);
 	}
 }

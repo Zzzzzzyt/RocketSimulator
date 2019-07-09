@@ -3,11 +3,15 @@ package com.zzzyt.rs.desktop;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.Input.Keys;
+import com.badlogic.gdx.InputAdapter;
 import com.badlogic.gdx.math.Vector3;
 import com.zzzyt.rs.Controller;
 import com.zzzyt.rs.RocketSimulator;
 
-public class DesktopController extends Controller {
+public class DesktopController extends InputAdapter implements Controller {
+	static final double[] speeds= {0,0.1,0.2,0.5,1,1.5,2,5,10,50,100,500,1000,10000,100000};
+	int spd;
+	
 	RocketSimulator rs;
 	Vector3 tp,tp2;
 	
@@ -48,6 +52,27 @@ public class DesktopController extends Controller {
 		case Input.Keys.X:
 			rs.r.throttle=1;
 			return true;
+		case Input.Keys.LEFT:
+			if(speeds[spd]!=rs.sim.speed) {
+				for(int i=speeds.length-1;i>=0;i--) {
+					if(speeds[i]<=rs.sim.speed) {
+						spd=i;
+					}
+				}
+			}
+			if(spd>0)spd--;
+			rs.sim.speed=speeds[spd];
+			return true;
+		case Input.Keys.RIGHT:
+			if(speeds[spd]!=rs.sim.speed) {
+				for(int i=speeds.length-1;i>=0;i--) {
+					if(speeds[i]<=rs.sim.speed) {
+						spd=i;
+					}
+				}
+			}
+			if(spd<speeds.length-1)spd++;
+			rs.sim.speed=speeds[spd];
 		default:
 			return false;
 		}
@@ -84,27 +109,6 @@ public class DesktopController extends Controller {
 			rs.cam.zoom+=zdif;
 		}
 		
-		double sdif=1;
-		if(rs.sim.speed<=10) {
-			sdif=0.1;
-		}
-		else if(rs.sim.speed<=50) {
-			sdif=1;
-		}
-		else if(rs.sim.speed<=200) {
-			sdif=5;
-		}
-		else {
-			sdif=20;
-		}
-		if(Gdx.input.isKeyPressed(Keys.LEFT)) {
-			rs.sim.speed-=sdif;
-			if(rs.sim.speed<0)rs.sim.speed=0;
-		}
-		if(Gdx.input.isKeyPressed(Keys.RIGHT)) {
-			rs.sim.speed+=sdif;
-		}
-		
 		if(Gdx.input.isKeyPressed(Keys.A)) {
 			rs.r.gimbal+=0.01;
 			if(rs.r.gimbal>0.2)rs.r.gimbal=0.2;
@@ -130,8 +134,9 @@ public class DesktopController extends Controller {
 		}
 	}
 	
-	public DesktopController(RocketSimulator rs){
+	public DesktopController(){
 		super();
-		this.rs=rs;
+		this.rs=RocketSimulator.rs;
+		this.spd=4;
 	}
 }

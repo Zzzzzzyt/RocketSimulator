@@ -6,6 +6,8 @@ import com.zzzyt.rs.phy.Phy;
 
 public class F9B5auto extends Rocket{
 	public void guide() {
+		gimbal=0;
+		throttle=1;
 		if (t <= 100) {
 			dir=Math.PI / 2;
 		}

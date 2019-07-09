@@ -9,11 +9,11 @@ public class Simulator {
 	public double speed;
 	private double last;
 	
-	public Simulator(RocketSimulator rs,double fps,double speed){
+	public Simulator(double fps,double speed){
 		this.fps=fps;
-		this.rs=rs;
 		this.speed=speed;
 		this.stopped=false;
+		this.rs=RocketSimulator.rs;
 	}
 	
 	public void sim() {

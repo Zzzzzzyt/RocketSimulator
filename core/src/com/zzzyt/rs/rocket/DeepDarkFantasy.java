@@ -28,10 +28,10 @@ public class DeepDarkFantasy extends Rocket{
 				sp=(Phy.tri(x, y)-Phy.R)/2-1;
 			}
 			if(vy<sp) {
-				throttle=Math.min(10,throttle+0.5);
+				throttle=Math.min(10,throttle+0.2);
 			}
 			else {
-				throttle=Math.max(0, throttle-0.5);
+				throttle=Math.max(0, throttle-0.2);
 			}
 		}
 	}
