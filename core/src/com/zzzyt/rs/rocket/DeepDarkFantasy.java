@@ -13,7 +13,12 @@ public class DeepDarkFantasy extends Rocket{
 	}
 	public void guide() {
 		if(stage>0){
-			dir=Math.atan2(vy, vx)+Math.PI;
+			if(Phy.tri(x, y)>Phy.R+2){
+				dir=Math.atan2(vy, vx)+Math.PI;
+			}
+			else {
+				dir=Math.PI/2;
+			}
 			double sp=0;
 			if(Phy.tri(x, y)>Phy.R+3000) {
 				sp=-300;
@@ -24,14 +29,17 @@ public class DeepDarkFantasy extends Rocket{
 			else if(Phy.tri(x, y)>Phy.R+10) {
 				sp=-15;
 			}
+			else if(Phy.tri(x, y)>Phy.R+2){
+				sp=-1;
+			}
 			else {
-				sp=(Phy.tri(x, y)-Phy.R)/2-1;
+				sp=-1000;
 			}
 			if(vy<sp) {
-				throttle=Math.min(10,throttle+0.2);
+				throttle=Math.min(1,throttle+0.1);
 			}
 			else {
-				throttle=Math.max(0, throttle-0.2);
+				throttle=Math.max(0, throttle-0.1);
 			}
 		}
 	}
