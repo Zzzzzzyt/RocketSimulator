@@ -1,7 +1,7 @@
 package com.zzzyt.rs.rocket;
 
-import com.zzzyt.rs.data.Rocket;
-import com.zzzyt.rs.data.Stage;
+import com.zzzyt.rs.type.Rocket;
+import com.zzzyt.rs.type.Stage;
 import com.zzzyt.rs.phy.Phy;
 
 public class DeepDarkFantasy extends Rocket{

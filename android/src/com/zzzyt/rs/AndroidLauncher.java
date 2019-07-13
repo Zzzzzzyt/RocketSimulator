@@ -16,5 +16,6 @@ public class AndroidLauncher extends AndroidApplication {
 		initialize(game, config);
 		game.control=new GestureDetector(new AndroidController());
 		game.handler=new AndroidHandler();
+		game.showButtons=true;
 	}
 }

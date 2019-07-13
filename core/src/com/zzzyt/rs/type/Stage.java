@@ -1,4 +1,4 @@
-package com.zzzyt.rs.data;
+package com.zzzyt.rs.type;
 
 public abstract class Stage {
 	public Rocket r;

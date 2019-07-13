@@ -1,8 +1,8 @@
 package com.zzzyt.rs.phy;
 
 import com.badlogic.gdx.Gdx;
-import com.zzzyt.rs.data.Rocket;
-import com.zzzyt.rs.data.Stage;
+import com.zzzyt.rs.type.Rocket;
+import com.zzzyt.rs.type.Stage;
 
 public class Phy {
 	public final static double G = 6.67428E-11d;

@@ -1,4 +1,4 @@
-package com.zzzyt.rs.data;
+package com.zzzyt.rs.type;
 
 import java.util.ArrayList;
 import java.util.List;

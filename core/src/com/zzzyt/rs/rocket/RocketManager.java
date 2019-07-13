@@ -1,7 +1,7 @@
 package com.zzzyt.rs.rocket;
 
 import com.badlogic.gdx.Gdx;
-import com.zzzyt.rs.data.Rocket;
+import com.zzzyt.rs.type.Rocket;
 
 public class RocketManager {
 	public static Rocket get(String name) {

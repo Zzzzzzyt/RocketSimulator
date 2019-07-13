@@ -11,7 +11,8 @@ public class AndroidController extends GestureAdapter{
 	}
 	
 	public boolean tap (float x, float y, int count, int button) {
-		if(inBox(x,y,0,0,Gdx.graphics.getWidth(),Gdx.graphics.getHeight())) {
+		y=Gdx.graphics.getHeight()-1-y;
+		if(inBox(x,y,20,40,80,30)) {
 			if(rs.r.stage<rs.r.stages.size()-1)rs.r.stage();
 			return true;
 		}
