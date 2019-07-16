@@ -1,5 +1,6 @@
 # RocketSimulator
-Simple GUI simulator using LibGDX
+Simple GUI simulator using [LibGDX](https://github.com/libgdx/libgdx).
+Huge thanks to the LibGDX team!
 
 ## Controls
 
