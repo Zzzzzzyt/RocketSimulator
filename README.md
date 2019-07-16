@@ -4,7 +4,8 @@ Simple GUI simulator using LibGDX
 ## Controls
 
 ### Desktop
-```UP     -Zoom in
+```
+UP     -Zoom in
 DOWN   -Zoom out
 LEFT   -Simulation speed down
 RIGHT  -Simulation speed up
@@ -23,7 +24,8 @@ Drag with mouse right key - Drag the view
 ```
 
 ### Android
-```Bottom Left:
+```
+Bottom Left:
    Up          -Throttle up
    Down        -Throttle down
    Double up   -Maximize throttle
