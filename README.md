@@ -2,20 +2,45 @@
 Simple GUI simulator using LibGDX
 
 ## Controls
-```UP    - Zoom in
-DOWN  - Zoom out
-LEFT  - Simulation speed down
-RIGHT - Simulation speed up
-RSHIFT- Toggle focus on rocket
-SPACE - Trigger stage
-A     - Thrust vector rotate counterclockwise
-D     - Thrust vector rotate clockwise
-LSHIFT- Throttle up
-LCTRL - Throttle down
-Z     - Minimize throttle
-X     - Maximize throttle
+
+### Desktop
+```UP     -Zoom in
+DOWN   -Zoom out
+LEFT   -Simulation speed down
+RIGHT  -Simulation speed up
+RSHIFT -Toggle focus on rocket
+SPACE  -Trigger stage
+A      -Thrust vector rotate counterclockwise
+D      -Thrust vector rotate clockwise
+Q      -Rocket rotate counterclockwise
+E      -Rocket rotate clockwise
+LSHIFT -Throttle up
+LCTRL  -Throttle down
+Z      -Minimize throttle
+X      -Maximize throttle
 
 Drag with mouse right key - Drag the view
+```
+
+### Android
+```Bottom Left:
+   Up          -Throttle up
+   Down        -Throttle down
+   Double up   -Maximize throttle
+   Double down -Minimize throttle
+Bottom Right:
+   Upper left  -Thrust vector rotate counterclockwise
+   Upper right -Thrust vector rotate clockwise
+   Lower left  -Rocket rotate counterclockwise
+   Lower right -Rocket rotate clockwise 
+Top Right:
+   Focus       -Toggle focus on rocket
+   Up          -Simulation speed up
+   Down        -Simulation speed down
+
+Triple Tap     -Trigger stage
+Drag           -Drag the view
+Finger zoom    -Zoom
 ```
 
 
@@ -28,7 +53,14 @@ Sea level air density=1.29 kg/m^3
 Physics frame length(dt)=0.05 s
 ```
 
-## The test rocket
+
+## The Deep Dark Fantasies Rocket
+This is a new rocket, very unreal, only for testing.
+It has high thrust, low mass, and uses no fuel.
+If you change to stage 2, it will automatically try to land.
+
+
+## The F9B5 rocket
 The rocket(F9B5auto) is based on SpaceX's Falcon 9 Block 5.
 
 ```
@@ -53,5 +85,5 @@ Payload:
 ```
 
 The effect of thrust changing as atmospheric pressure decreases is not accounted.
-
+The atmosphere pressure calculation is a bit unreal(to be fixed).
 The rocket is set to manual control mode by default.
