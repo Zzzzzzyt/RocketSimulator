@@ -17,7 +17,7 @@ public class F9B5auto extends Rocket{
 	}
 	
 	public F9B5auto() {
-		super("Falcon 9 Block 5 Auto #1", 0, 0, Phy.R + 10, 0, 0, 0,true);
+		super("Falcon 9 Block 5 Auto #1", 0, 0, Phy.R + 1, 0, 0, 0,true);
 
 		this.stages.add(new Stage(this) {
 			public double getDrag() {return 3.3;}

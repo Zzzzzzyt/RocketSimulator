@@ -22,7 +22,9 @@ public class Drawer {
     public SpriteBatch batch;
     public BitmapFont font;
     public Matrix4 defaultMat;
-
+    
+    public ButtonDrawer buttons;
+    
     public Sprite rocket;
     public Sprite rocketi;
     public Sprite exhaust;
@@ -49,6 +51,8 @@ public class Drawer {
         exhaust = new Sprite(new Texture("exhaust.png"));
         exhaust.setRegion(0,0,11,32);
         exhaust.setOrigin(exhaust.getWidth()/2, exhaust.getHeight());
+        
+        buttons=new ButtonDrawer();
     }
 
     public void dispose(){
@@ -133,46 +137,37 @@ public class Drawer {
 
         shape.begin(ShapeRenderer.ShapeType.Filled);
         shape.setColor(new Color(1,1,1,1));
-        shape.rect(10, 10, len/zoom, 2);
+        shape.rect(10, RocketSimulator.rs.h-90, len/zoom, 2);
         shape.end();
 
         shape.begin(ShapeRenderer.ShapeType.Filled);
         shape.setColor(new Color(1,1,1,1));
-        shape.rect(10, 10, 2, 5);
+        shape.rect(10, RocketSimulator.rs.h-90, 2, 5);
         shape.end();
 
         shape.begin(ShapeRenderer.ShapeType.Filled);
         shape.setColor(new Color(1,1,1,1));
-        shape.rect(10+len/zoom-2, 10, 2, 5);
+        shape.rect(10+len/zoom-2, RocketSimulator.rs.h-90, 2, 5);
         shape.end();
 
         batch.setProjectionMatrix(defaultMat);
         batch.begin();
         font.setColor(1,1,1,1);
-        font.draw(batch, "Rocket Name: "+r.name,10,rs.h-10);
+        font.draw(batch, String.format(Locale.getDefault(),"Version:%s Rocket Name: %s","1.1.2",r.name),10,rs.h-10);
         font.draw(batch, String.format(Locale.getDefault(),"t=%.1f x=%.2f y=%.2f vx=%.2f vy=%.2f m=%.0f", r.t,r.x,r.y,r.vx,r.vy,r.getMass()), 10,rs.h-30);
         font.draw(batch,String.format(Locale.getDefault(),"sp=%.2f zm=%.2f tr=%.2f f=%.2f h=%.1f drag=%.2f th=%.2f",rs.sim.speed,rs.cam.zoom,r.throttle,r.stages.get(r.stage).f,Phy.tri(r.x,r.y)-Phy.R,Phy.tri(r.x,r.y)>=Phy.R+Phy.up?0:r.getDrag()*(Phy.R+Phy.up-Phy.tri(r.x,r.y))/Phy.up,r.getTheta()/Math.PI),10,rs.h-50);
         if(len>=1000) {
-            font.draw(batch,String.format(Locale.getDefault(),"%.0fkm", len/1000),20,30);
+            font.draw(batch,String.format(Locale.getDefault(),"%.0fkm", len/1000),20,RocketSimulator.rs.h-70);
         }
         else {
-            font.draw(batch,String.format(Locale.getDefault(),"%.0fm", len),20,30);
+            font.draw(batch,String.format(Locale.getDefault(),"%.0fm", len),20,RocketSimulator.rs.h-70);
         }
         batch.end();
     }
 
     public void drawGUI(){
-        shape.setProjectionMatrix(defaultMat);
-        shape.begin(ShapeRenderer.ShapeType.Filled);
-        shape.setColor(new Color(0.5f,0.5f,0.5f,0.5f));
-        shape.rect(20,40,80,30);
-        shape.end();
-
-        batch.setProjectionMatrix(defaultMat);
-        batch.begin();
-        font.setColor(1,1,1,0.5f);
-        font.draw(batch,"Stage!",25,60);
-        batch.end();
+    	batch.setProjectionMatrix(defaultMat);
+        buttons.draw(batch);
     }
 
     public Drawer(){

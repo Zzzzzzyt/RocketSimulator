@@ -13,12 +13,15 @@ public class DeepDarkFantasy extends Rocket{
 	}
 	public void guide() {
 		if(stage>0){
-			if(Phy.tri(x, y)>Phy.R+2){
-				dir=Math.atan2(vy, vx)+Math.PI;
+			if(Math.abs(vy)>2) {
+				if(Phy.tri(x, y)>Phy.R+2){
+					dir=Math.atan2(vy, vx)+Math.PI;
+				}
+				else {
+					dir=Math.PI/2;
+				}
 			}
-			else {
-				dir=Math.PI/2;
-			}
+			
 			double sp=0;
 			if(Phy.tri(x, y)>Phy.R+3000) {
 				sp=-300;
@@ -26,8 +29,11 @@ public class DeepDarkFantasy extends Rocket{
 			else if(Phy.tri(x, y)>Phy.R+800) {
 				sp=-100;
 			}
-			else if(Phy.tri(x, y)>Phy.R+10) {
+			else if(Phy.tri(x, y)>Phy.R+200) {
 				sp=-15;
+			}
+			else if(Phy.tri(x, y)>Phy.R+10) {
+				sp=-5;
 			}
 			else if(Phy.tri(x, y)>Phy.R+2){
 				sp=-1;
@@ -44,7 +50,7 @@ public class DeepDarkFantasy extends Rocket{
 		}
 	}
 	public DeepDarkFantasy() {
-		super("The Deep Dark Fantasies Rocket", 0, 0, Phy.R + 10, 0, 0, 0,false);
+		super("The Deep Dark Fantasies Rocket", 0, 0, Phy.R + 1, 0, 0, 0,false);
 		
 		this.stages.add(new Stage(this) {
 			public double getDrag() {return 1;}

@@ -80,7 +80,7 @@ public class Rocket {
 		this.vy = 0;
 		this.stage = 0;
 		this.dir=Math.PI/2;
-		this.throttle=1;
+		this.throttle=0;
 		this.gimbal=0;
 		this.doCheckStage=true;
 		this.stages=new ArrayList<Stage>();
@@ -95,7 +95,7 @@ public class Rocket {
 		this.vy = vy;
 		this.stage = stage;
 		this.dir=Math.PI/2;
-		this.throttle=1;
+		this.throttle=0;
 		this.gimbal=0;
 		this.doCheckStage = doCheckStage;
 		this.stages=new ArrayList<Stage>();

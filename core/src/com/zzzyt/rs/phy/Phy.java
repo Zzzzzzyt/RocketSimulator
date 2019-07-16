@@ -1,6 +1,7 @@
 package com.zzzyt.rs.phy;
 
 import com.badlogic.gdx.Gdx;
+import com.zzzyt.rs.RocketSimulator;
 import com.zzzyt.rs.type.Rocket;
 import com.zzzyt.rs.type.Stage;
 
@@ -11,7 +12,7 @@ public class Phy {
 	public final static double R = 6378000;
 	public final static double up = 100000;
 	
-	public final static double dt=0.05;
+	public static double dt=0.05;
 	
 	static double gravity,drag,ax,ay,tr,theta,m,flow,x,y,vx,vy;
 	static Stage stg;
@@ -29,6 +30,14 @@ public class Phy {
 	}
 	
 	public static boolean sim(Rocket r) {
+		if(RocketSimulator.rs.sim.speed>=100000) {
+			dt=0.2;
+		}
+		else {
+			dt=0.05;
+		}
+		
+		
 		stg=r.stages.get(r.stage);
 		x=r.x;
 		y=r.y;

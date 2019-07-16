@@ -115,6 +115,7 @@ public class RocketSimulator extends ApplicationAdapter{
 		ShapeRenderer tmp=new ShapeRenderer();
 		drawer.defaultMat=tmp.getProjectionMatrix();
 		tmp.dispose();
+		drawer.buttons.setPos();
 	}
 	
 	public RocketSimulator() {

@@ -8,21 +8,26 @@ public class Simulator {
 	public boolean stopped;
 	public double speed;
 	private double last;
+	public long cnt;
 	
 	public Simulator(double fps,double speed){
 		this.fps=fps;
 		this.speed=speed;
 		this.stopped=false;
 		this.rs=RocketSimulator.rs;
+		this.cnt=0;
 	}
 	
 	public void sim() {
 		last=rs.r.t;
+		cnt=0;
 		while(rs.r.t<last+1/fps*speed) {
 			if(!Phy.sim(rs.r)) {
 				stopped=true;
 				break;
 			}
-		}		
+			cnt++;
+		}
+		rs.r.t=last+cnt*Phy.dt;
 	}
 }
