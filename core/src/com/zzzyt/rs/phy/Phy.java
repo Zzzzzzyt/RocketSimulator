@@ -4,6 +4,7 @@ import com.badlogic.gdx.Gdx;
 import com.zzzyt.rs.RocketSimulator;
 import com.zzzyt.rs.type.Rocket;
 import com.zzzyt.rs.type.Stage;
+import com.zzzyt.rs.util.StringUtil;
 
 public class Phy {
 	public final static double G = 6.67428E-11d;
@@ -78,7 +79,7 @@ public class Phy {
 
 		if (Phy.tri(r.x, r.y)-Phy.R<1) {
 			if(Phy.tri(r.vx, r.vy)>10) {
-				Gdx.app.log("Rocket", String.format("Crash! t=%.2f", r.t));
+				Gdx.app.log("Rocket", StringUtil.format("Crash! t=%.2f", r.t));
 				return false;
 			}
 			else {

@@ -11,6 +11,7 @@ import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.zzzyt.rs.draw.Drawer;
 import com.zzzyt.rs.type.Rocket;
+import com.zzzyt.rs.util.StringUtil;
 import com.zzzyt.rs.phy.Phy;
 import com.zzzyt.rs.phy.Simulator;
 import com.zzzyt.rs.rocket.RocketManager;
@@ -85,7 +86,7 @@ public class RocketSimulator extends ApplicationAdapter{
         }
 
 		if(fcd<=0) {
-			Gdx.app.debug("Rocket", String.format(Locale.getDefault(),"t=%.1f x=%.2f y=%.2f vx=%.2f vy=%.2f m=%.0f", r.t,r.x,r.y,r.vx,r.vy,r.getMass())+"\n\t"+String.format(Locale.getDefault(),"sp=%.2f zm=%.2f tr=%.2f f=%.2f h=%.1f drag=%.2f th=%.2f",sim.speed,cam.zoom,r.throttle,r.stages.get(r.stage).f,Phy.tri(r.x,r.y)-Phy.R,Phy.tri(r.x,r.y)>=Phy.R+Phy.up?0:r.getDrag()*(Phy.R+Phy.up-Phy.tri(r.x,r.y))/Phy.up,r.getTheta()/Math.PI));
+			Gdx.app.debug("Rocket", StringUtil.format("t=%.1f x=%.3f y=%.2f vx=%.2f vy=%.2f m=%.0f", r.t,r.x,r.y,r.vx,r.vy,r.getMass())+"\n\t"+StringUtil.format("sp=%.2f zm=%.2f tr=%.2f f=%.2f h=%.1f drag=%.2f th=%.2f",sim.speed,cam.zoom,r.throttle,r.stages.get(r.stage).f,Phy.tri(r.x,r.y)-Phy.R,Phy.tri(r.x,r.y)>=Phy.R+Phy.up?0:r.getDrag()*(Phy.R+Phy.up-Phy.tri(r.x,r.y))/Phy.up,r.getTheta()/Math.PI));
 			fcd=30;
 		}
 		else {

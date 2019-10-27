@@ -11,6 +11,7 @@ import com.badlogic.gdx.math.Matrix4;
 import com.zzzyt.rs.RocketSimulator;
 import com.zzzyt.rs.phy.Phy;
 import com.zzzyt.rs.type.Rocket;
+import com.zzzyt.rs.util.StringUtil;
 
 import java.util.Locale;
 
@@ -153,14 +154,14 @@ public class Drawer {
         batch.setProjectionMatrix(defaultMat);
         batch.begin();
         font.setColor(1,1,1,1);
-        font.draw(batch, String.format(Locale.getDefault(),"Version:%s Rocket Name: %s","1.1.2",r.name),10,rs.h-10);
-        font.draw(batch, String.format(Locale.getDefault(),"t=%.1f x=%.2f y=%.2f vx=%.2f vy=%.2f m=%.0f", r.t,r.x,r.y,r.vx,r.vy,r.getMass()), 10,rs.h-30);
-        font.draw(batch,String.format(Locale.getDefault(),"sp=%.2f zm=%.2f tr=%.2f f=%.2f h=%.1f drag=%.2f th=%.2f",rs.sim.speed,rs.cam.zoom,r.throttle,r.stages.get(r.stage).f,Phy.tri(r.x,r.y)-Phy.R,Phy.tri(r.x,r.y)>=Phy.R+Phy.up?0:r.getDrag()*(Phy.R+Phy.up-Phy.tri(r.x,r.y))/Phy.up,r.getTheta()/Math.PI),10,rs.h-50);
+        font.draw(batch, StringUtil.format("Version:%s Rocket Name: %s","1.1.2",r.name),10,rs.h-10);
+        font.draw(batch, StringUtil.format("t=%.1f x=%.2f y=%.2f vx=%.2f vy=%.2f m=%.0f", r.t,r.x,r.y,r.vx,r.vy,r.getMass()), 10,rs.h-30);
+        font.draw(batch,StringUtil.format("sp=%.2f zm=%.2f tr=%.2f f=%.2f h=%.1f drag=%.2f th=%.2f",rs.sim.speed,rs.cam.zoom,r.throttle,r.stages.get(r.stage).f,Phy.tri(r.x,r.y)-Phy.R,Phy.tri(r.x,r.y)>=Phy.R+Phy.up?0:r.getDrag()*(Phy.R+Phy.up-Phy.tri(r.x,r.y))/Phy.up,r.getTheta()/Math.PI),10,rs.h-50);
         if(len>=1000) {
-            font.draw(batch,String.format(Locale.getDefault(),"%.0fkm", len/1000),20,RocketSimulator.rs.h-70);
+            font.draw(batch,StringUtil.format("%.0fkm", len/1000),20,RocketSimulator.rs.h-70);
         }
         else {
-            font.draw(batch,String.format(Locale.getDefault(),"%.0fm", len),20,RocketSimulator.rs.h-70);
+            font.draw(batch,StringUtil.format("%.0fm", len),20,RocketSimulator.rs.h-70);
         }
         batch.end();
     }

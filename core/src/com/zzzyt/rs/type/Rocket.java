@@ -5,6 +5,7 @@ import java.util.List;
 
 import com.badlogic.gdx.Gdx;
 import com.zzzyt.rs.phy.Phy;
+import com.zzzyt.rs.util.StringUtil;
 
 public class Rocket {
 	public String name;
@@ -46,7 +47,7 @@ public class Rocket {
 	}
 	
 	public void stage() {
-		Gdx.app.log("Rocket",String.format("Stage: %d -> %d",stage,stage+1));
+		Gdx.app.log("Rocket",StringUtil.format("Stage: %d -> %d",stage,stage+1));
 		stage++;
 		tmpmass=0;
 		for(int i=stage+1;i<stages.size();i++) {
