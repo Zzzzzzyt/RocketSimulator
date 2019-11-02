@@ -1,6 +1,8 @@
-package com.zzzyt.rs;
+package com.zzzyt.rs.input;
 
 import com.badlogic.gdx.Gdx;
+import com.zzzyt.rs.Handler;
+import com.zzzyt.rs.RocketSimulator;
 import com.zzzyt.rs.draw.ButtonDrawer;
 
 public class AndroidHandler implements Handler{

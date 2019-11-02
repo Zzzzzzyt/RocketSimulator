@@ -8,6 +8,10 @@ import com.google.gwt.event.logical.shared.ResizeEvent;
 import com.google.gwt.event.logical.shared.ResizeHandler;
 import com.google.gwt.user.client.Window;
 import com.zzzyt.rs.RocketSimulator;
+import com.zzzyt.rs.input.HtmlController;
+import com.zzzyt.rs.input.HtmlHandler;
+import com.zzzyt.rs.util.HtmlFormatter;
+import com.zzzyt.rs.util.StringUtil;
 
 public class HtmlLauncher extends GwtApplication {
 
@@ -50,6 +54,7 @@ public class HtmlLauncher extends GwtApplication {
 
 	@Override
 	public ApplicationListener createApplicationListener() {
+		StringUtil.formatter=new HtmlFormatter();
 		RocketSimulator game = new RocketSimulator();
 		game.control = new HtmlController();
 		game.handler = new HtmlHandler();

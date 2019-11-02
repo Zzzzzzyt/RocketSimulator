@@ -1,7 +1,8 @@
-package com.zzzyt.rs;
+package com.zzzyt.rs.input;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.input.GestureDetector.GestureAdapter;
+import com.zzzyt.rs.RocketSimulator;
 import com.zzzyt.rs.draw.ButtonDrawer;
 
 public class AndroidController extends GestureAdapter{

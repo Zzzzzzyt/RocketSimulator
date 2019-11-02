@@ -4,13 +4,13 @@ Huge thanks to the LibGDX team!
 
 ## Controls
 
-### Desktop
+### Desktop / Web
 ```
 UP     -Zoom in
 DOWN   -Zoom out
 LEFT   -Simulation speed down
 RIGHT  -Simulation speed up
-RSHIFT -Toggle focus on rocket
+V      -Toggle focus on rocket
 SPACE  -Trigger stage
 A      -Thrust vector rotate counterclockwise
 D      -Thrust vector rotate clockwise
@@ -18,8 +18,8 @@ Q      -Rocket rotate counterclockwise
 E      -Rocket rotate clockwise
 LSHIFT -Throttle up
 LCTRL  -Throttle down
-Z      -Minimize throttle
-X      -Maximize throttle
+X      -Minimize throttle
+Z      -Maximize throttle
 
 Drag with mouse right key - Drag the view
 ```

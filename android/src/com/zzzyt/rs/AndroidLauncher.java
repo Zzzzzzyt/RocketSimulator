@@ -6,6 +6,8 @@ import com.badlogic.gdx.backends.android.AndroidApplication;
 import com.badlogic.gdx.backends.android.AndroidApplicationConfiguration;
 import com.badlogic.gdx.input.GestureDetector;
 import com.zzzyt.rs.RocketSimulator;
+import com.zzzyt.rs.input.AndroidController;
+import com.zzzyt.rs.input.AndroidHandler;
 
 public class AndroidLauncher extends AndroidApplication {
 	@Override

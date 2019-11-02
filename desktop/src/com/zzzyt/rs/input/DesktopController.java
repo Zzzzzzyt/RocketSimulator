@@ -1,11 +1,11 @@
-package com.zzzyt.rs.client;
+package com.zzzyt.rs.input;
 
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.InputAdapter;
 import com.badlogic.gdx.math.Vector3;
 import com.zzzyt.rs.RocketSimulator;
 
-public class HtmlController extends InputAdapter{
+public class DesktopController extends InputAdapter{
 	static final double[] speeds= {0,0.1,0.2,0.5,1,1.5,2,5,10,50,100,500,1000,10000,100000,1000000};
 	int spd;
 	
@@ -37,16 +37,16 @@ public class HtmlController extends InputAdapter{
 	
 	public boolean keyDown(int keycode) {
 		switch (keycode) {
-		case Input.Keys.SHIFT_RIGHT:
+		case Input.Keys.V:
 			rs.focusOn=!rs.focusOn;
 			return true;
 		case Input.Keys.SPACE:
 			if(rs.r.stage<rs.r.stages.size()-1)rs.r.stage();
 			return true;
-		case Input.Keys.Z:
+		case Input.Keys.X:
 			rs.r.throttle=0;
 			return true;
-		case Input.Keys.X:
+		case Input.Keys.Z:
 			rs.r.throttle=1;
 			return true;
 		case Input.Keys.LEFT:
@@ -75,7 +75,7 @@ public class HtmlController extends InputAdapter{
 		}
 	}
 	
-	public HtmlController(){
+	public DesktopController(){
 		super();
 		this.rs=RocketSimulator.rs;
 		this.spd=4;

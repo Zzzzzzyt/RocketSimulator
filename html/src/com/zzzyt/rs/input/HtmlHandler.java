@@ -1,11 +1,11 @@
-package com.zzzyt.rs.desktop;
+package com.zzzyt.rs.input;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input.Keys;
 import com.zzzyt.rs.Handler;
 import com.zzzyt.rs.RocketSimulator;
 
-public class DesktopHandler implements Handler{	
+public class HtmlHandler implements Handler {
 	RocketSimulator rs;
 	
 	public void handle() {
@@ -41,7 +41,7 @@ public class DesktopHandler implements Handler{
 		
 		if(Gdx.input.isKeyPressed(Keys.A)) {
 			rs.r.gimbal+=0.01;
-			if(rs.r.gimbal>0.2)rs.r.gimbal=0.2;
+			if(rs.r.gimbal>0.2)rs.r.gimbal=0.2; 
 		}
 		if(Gdx.input.isKeyPressed(Keys.D)) {
 			rs.r.gimbal-=0.01;
@@ -56,15 +56,15 @@ public class DesktopHandler implements Handler{
 		
 		if(Gdx.input.isKeyPressed(Keys.SHIFT_LEFT)) {
 			rs.r.throttle+=0.01;
-			if(rs.r.throttle<0)rs.r.throttle=0;
+			if(rs.r.throttle>1)rs.r.throttle=1;
 		}
 		if(Gdx.input.isKeyPressed(Keys.CONTROL_LEFT)) {
 			rs.r.throttle-=0.01;
-			if(rs.r.throttle>1)rs.r.throttle=1;
+			if(rs.r.throttle<0)rs.r.throttle=0;
 		}
 	}
 	
-	public DesktopHandler() {
+	public HtmlHandler() {
 		super();
 		this.rs=RocketSimulator.rs;
 	}

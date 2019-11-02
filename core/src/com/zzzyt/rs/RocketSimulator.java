@@ -16,8 +16,6 @@ import com.zzzyt.rs.phy.Phy;
 import com.zzzyt.rs.phy.Simulator;
 import com.zzzyt.rs.rocket.RocketManager;
 
-import java.util.Locale;
-
 public class RocketSimulator extends ApplicationAdapter{
 	public static RocketSimulator rs;
 

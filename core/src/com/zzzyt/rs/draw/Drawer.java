@@ -13,8 +13,6 @@ import com.zzzyt.rs.phy.Phy;
 import com.zzzyt.rs.type.Rocket;
 import com.zzzyt.rs.util.StringUtil;
 
-import java.util.Locale;
-
 public class Drawer {
     RocketSimulator rs;
     Rocket r;
