@@ -21,7 +21,7 @@ LCTRL  -Throttle down
 X      -Minimize throttle
 Z      -Maximize throttle
 
-Drag with mouse right key - Drag the view
+Drag with left mouse key - Drag the view
 ```
 
 ### Android
