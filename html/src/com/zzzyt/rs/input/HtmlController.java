@@ -6,11 +6,12 @@ import com.badlogic.gdx.math.Vector3;
 import com.zzzyt.rs.RocketSimulator;
 
 public class HtmlController extends InputAdapter{
-	static final double[] speeds= {0,0.1,0.2,0.5,1,1.5,2,5,10,50,100,500,1000,10000,100000,1000000};
-	int spd;
+	private static final double[] speeds= {0,0.1,0.2,0.5,1,1.5,2,5,10,50,100,500,1000,10000,100000,1000000};
+	private int spd;
 	
-	RocketSimulator rs;
-	Vector3 tp,tp2;
+	private RocketSimulator rs;
+	private Vector3 tp;
+	private Vector3 tp2;
 	
 	public boolean touchDown (int screenX, int screenY, int pointer, int button) {
 		if(button!=Input.Buttons.LEFT)return false;

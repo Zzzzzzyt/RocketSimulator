@@ -14,7 +14,7 @@ import com.zzzyt.rs.type.Rocket;
 import com.zzzyt.rs.util.StringUtil;
 import com.zzzyt.rs.phy.Phy;
 import com.zzzyt.rs.phy.Simulator;
-import com.zzzyt.rs.rocket.RocketManager;
+import com.zzzyt.rs.rocket.RocketHelper;
 
 public class RocketSimulator extends ApplicationAdapter{
 	public static RocketSimulator rs;
@@ -44,7 +44,7 @@ public class RocketSimulator extends ApplicationAdapter{
 		h=Gdx.graphics.getHeight();
 		w=Gdx.graphics.getWidth();
 		
-		r = RocketManager.get("DDF");
+		r = RocketHelper.get("DDF");
 		sim=new Simulator(30,1);
 
 		drawer=new Drawer();

@@ -3,12 +3,12 @@ package com.zzzyt.rs.rocket;
 import com.badlogic.gdx.Gdx;
 import com.zzzyt.rs.type.Rocket;
 
-public class RocketManager {
+public class RocketHelper {
 	public static Rocket get(String name) {
-		if(name.equals("F9B5 auto"))return new F9B5auto();
-		if(name.equals("F9B5 auto 2"))return new F9B5auto2();
-		if(name.equals("F9B5 manual"))return new F9B5manual();
-		if(name.equals("DDF"))return new DeepDarkFantasy();
+		if("F9B5 auto".equals(name))return new F9B5auto();
+		if("F9B5 auto 2".equals(name))return new F9B5auto2();
+		if("F9B5 manual".equals(name))return new F9B5manual();
+		if("DDF".equals(name))return new DeepDarkFantasy();
 		return null;
 	}
 	
