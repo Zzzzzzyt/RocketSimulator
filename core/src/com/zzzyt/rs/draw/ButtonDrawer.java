@@ -6,11 +6,46 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.zzzyt.rs.RocketSimulator;
 
 public class ButtonDrawer {
-	public Sprite dirl,dirr,giml,gimr,thu,thd,thmax,thmin,spu,spd,focus;
-	public Sprite pdirl,pdirr,pgiml,pgimr,pthu,pthd,pthmax,pthmin,pspu,pspd,pfocus;
-	public boolean Pdirl,Pdirr,Pgiml,Pgimr,Pthu,Pthd,Pthmax,Pthmin,Pspu,Pspd,Pfocus;
+	public Sprite dirl;
+	public Sprite dirr;
+	public Sprite giml;
+	public Sprite gimr;
+	public Sprite thu;
+	public Sprite thd;
+	public Sprite thmax;
+	public Sprite thmin;
+	public Sprite spu;
+	public Sprite spd;
+	public Sprite focus;
+	
+	public Sprite pdirl;
+	public Sprite pdirr;
+	public Sprite pgiml;
+	public Sprite pgimr;
+	public Sprite pthu;
+	public Sprite pthd;
+	public Sprite pthmax;
+	public Sprite pthmin;
+	public Sprite pspu;
+	public Sprite pspd;
+	public Sprite pfocus;
+	
+	public boolean Pdirl;
+	public boolean Pdirr;
+	public boolean Pgiml;
+	public boolean Pgimr;
+	public boolean Pthu;
+	public boolean Pthd;
+	public boolean Pthmax;
+	public boolean Pthmin;
+	public boolean Pspu;
+	public boolean Pspd;
+	public boolean Pfocus;
+	
 	public Texture texture;
-	private float h,w;
+	
+	private float h;
+	private float w;
 	
 	public void init() {
 		texture=new Texture("button/button.png");

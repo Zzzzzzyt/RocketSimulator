@@ -5,7 +5,7 @@ public class StringUtil {
 	
 	public static String format(String fmt, Object... args) {
 		if(formatter==null) {
-			throw new NullPointerException("Internal formatter not assigned!");
+			throw new IllegalArgumentException("Internal formatter not assigned!");
 		}
 		return formatter.format(fmt, args);
 	}

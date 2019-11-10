@@ -7,7 +7,6 @@ public class Simulator {
 	public RocketSimulator rs;
 	public boolean stopped;
 	public double speed;
-	private double last;
 	public long cnt;
 	
 	public Simulator(double fps,double speed){
@@ -19,6 +18,7 @@ public class Simulator {
 	}
 	
 	public void sim() {
+		double last;
 		last=rs.r.t;
 		cnt=0;
 		while(rs.r.t<last+1/fps*speed) {

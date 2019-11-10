@@ -14,8 +14,8 @@ import com.zzzyt.rs.type.Rocket;
 import com.zzzyt.rs.util.StringUtil;
 
 public class Drawer {
-    RocketSimulator rs;
-    Rocket r;
+    private RocketSimulator rs;
+    private Rocket r;
 
     public ShapeRenderer shape;
     public SpriteBatch batch;

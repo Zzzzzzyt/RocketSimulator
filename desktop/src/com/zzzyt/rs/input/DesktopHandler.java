@@ -6,7 +6,7 @@ import com.zzzyt.rs.Handler;
 import com.zzzyt.rs.RocketSimulator;
 
 public class DesktopHandler implements Handler{	
-	RocketSimulator rs;
+	private RocketSimulator rs;
 	
 	public void handle() {
 		double zdif=1;

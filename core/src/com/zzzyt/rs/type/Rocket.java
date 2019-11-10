@@ -12,14 +12,17 @@ public class Rocket {
 	public List<Stage> stages;
 	
 	public double t;
-	public double x,y,vx,vy;
+	public double x;
+	public double y;
+	public double vx;
+	public double vy;
 	public double dir,throttle,gimbal;
 	public int stage;
 	
 	public boolean doCheckStage;
 	public double nextTime;
 	
-	double tmpmass;
+	private double tmpmass;
 	
 	public void init() {
 		tmpmass=0;

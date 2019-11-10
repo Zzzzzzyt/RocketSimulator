@@ -15,8 +15,8 @@ public class Phy {
 	
 	public static double dt=0.05;
 	
-	static double gravity,drag,ax,ay,tr,theta,m,flow,x,y,vx,vy;
-	static Stage stg;
+	private static double gravity,drag,ax,ay,tr,theta,m,x,y,vx,vy;
+	private static Stage stg;
 	
 	public static boolean eq(double x, double y) {
 		return Math.abs(x - y) < 1E-6;

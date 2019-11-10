@@ -24,7 +24,8 @@ public class RocketSimulator extends ApplicationAdapter{
 
 	public Drawer drawer;
 
-	public float h,w;
+	public float h;
+	public float w;
 	
 	public InputProcessor control;
 	public Handler handler;

@@ -11,8 +11,22 @@ public class AndroidHandler implements Handler{
 	private RocketSimulator rs;
 	private ButtonDrawer b;
 
-	private float x,y,h,w,scale;
-	private boolean Pdirl,Pdirr,Pgiml,Pgimr,Pthu,Pthd,Pthmax,Pthmin,Pspu,Pspd;
+	private float x;
+	private float y;
+	private float h;
+	private float w;
+	private float scale;
+	
+	private boolean Pdirl;
+	private boolean Pdirr;
+	private boolean Pgiml;
+	private boolean Pgimr;
+	private boolean Pthu;
+	private boolean Pthd;
+	private boolean Pthmax;
+	private boolean Pthmin;
+	private boolean Pspu;
+	private boolean Pspd;
 
 	private boolean inBox(float x,float y,float x1,float y1,float w,float h) {
 		return x1-w/2<=x&&y1-h/2<=y&&x<=x1+w/2&&y<=y1+h/2;
@@ -31,7 +45,6 @@ public class AndroidHandler implements Handler{
 			x=Gdx.input.getX(p);
 			y=Gdx.graphics.getHeight()-1-Gdx.input.getY(p);
 
-			scale=0.5f;
 			if(Math.min(h,w*9/16)>700)scale=1f;
 
 			if(inBox(x,y,w-200*scale, 80*scale,100,100)) {
@@ -125,5 +138,6 @@ public class AndroidHandler implements Handler{
 	public AndroidHandler(){
 		this.rs=RocketSimulator.rs;
 		this.spd=4;
+		this.scale=0.5f;
 	}
 }
