@@ -1,5 +1,6 @@
 # RocketSimulator
 [![Codacy Badge](https://api.codacy.com/project/badge/Grade/0a2b13bcd7d5466d88ab39b68d2ddf8e)](https://www.codacy.com/manual/Zzzyt/RocketSimulator?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=Zzzzzzyt/RocketSimulator&amp;utm_campaign=Badge_Grade)
+
 Simple GUI rocket/spaceflight simulator using [LibGDX](https://github.com/libgdx/libgdx).
 Huge thanks to the LibGDX team!
 
