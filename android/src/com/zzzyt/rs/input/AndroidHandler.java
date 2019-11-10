@@ -11,22 +11,8 @@ public class AndroidHandler implements Handler{
 	private RocketSimulator rs;
 	private ButtonDrawer b;
 
-	private float x;
-	private float y;
-	private float h;
-	private float w;
-	private float scale;
 	
-	private boolean Pdirl;
-	private boolean Pdirr;
-	private boolean Pgiml;
-	private boolean Pgimr;
-	private boolean Pthu;
-	private boolean Pthd;
-	private boolean Pthmax;
-	private boolean Pthmin;
-	private boolean Pspu;
-	private boolean Pspd;
+	private float scale;
 
 	private boolean inBox(float x,float y,float x1,float y1,float w,float h) {
 		return x1-w/2<=x&&y1-h/2<=y&&x<=x1+w/2&&y<=y1+h/2;
@@ -34,11 +20,25 @@ public class AndroidHandler implements Handler{
 
 	@Override
 	public void handle() {
+		boolean Pdirl = false;
+		boolean Pdirr = false;
+		boolean Pgiml = false;
+		boolean Pgimr = false;
+		boolean Pthu = false;
+		boolean Pthd = false;
+		boolean Pthmax = false;
+		boolean Pthmin = false;
+		boolean Pspu = false;
+		boolean Pspd = false;
+		
+		float x;
+		float y;
+		float h;
+		float w;
+		
 		if(b==null)b=RocketSimulator.rs.drawer.buttons;
 		h=RocketSimulator.rs.h;
 		w=RocketSimulator.rs.w;
-
-		Pdirl=Pdirr=Pgiml=Pgimr=Pthu=Pthd=Pthmax=Pthmin=Pspu=Pspd=false;
 
 		for(int p = 0; p<10;p++){
 			if(!Gdx.input.isTouched(p))continue;
