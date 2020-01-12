@@ -5,7 +5,7 @@ import com.badlogic.gdx.Input.Keys;
 import com.zzzyt.rs.Handler;
 import com.zzzyt.rs.RocketSimulator;
 
-public class HtmlHandler implements Handler {
+public class HtmlDesktopHandler implements Handler {
 	private RocketSimulator rs;
 	
 	public void handle() {
@@ -64,7 +64,7 @@ public class HtmlHandler implements Handler {
 		}
 	}
 	
-	public HtmlHandler() {
+	public HtmlDesktopHandler() {
 		super();
 		this.rs=RocketSimulator.rs;
 	}

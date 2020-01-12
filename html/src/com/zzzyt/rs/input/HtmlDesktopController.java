@@ -5,7 +5,7 @@ import com.badlogic.gdx.InputAdapter;
 import com.badlogic.gdx.math.Vector3;
 import com.zzzyt.rs.RocketSimulator;
 
-public class HtmlController extends InputAdapter{
+public class HtmlDesktopController extends InputAdapter{
 	private static final double[] speeds= {0,0.1,0.2,0.5,1,1.5,2,5,10,50,100,500,1000,10000,100000,1000000};
 	private int spd;
 	
@@ -76,7 +76,7 @@ public class HtmlController extends InputAdapter{
 		}
 	}
 	
-	public HtmlController(){
+	public HtmlDesktopController(){
 		super();
 		this.rs=RocketSimulator.rs;
 		this.spd=4;

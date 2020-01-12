@@ -4,12 +4,13 @@ import com.badlogic.gdx.ApplicationListener;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.backends.gwt.GwtApplication;
 import com.badlogic.gdx.backends.gwt.GwtApplicationConfiguration;
+import com.badlogic.gdx.input.GestureDetector;
 import com.google.gwt.event.logical.shared.ResizeEvent;
 import com.google.gwt.event.logical.shared.ResizeHandler;
 import com.google.gwt.user.client.Window;
 import com.zzzyt.rs.RocketSimulator;
-import com.zzzyt.rs.input.HtmlController;
-import com.zzzyt.rs.input.HtmlHandler;
+import com.zzzyt.rs.input.HtmlMobileController;
+import com.zzzyt.rs.input.HtmlMobileHandler;
 import com.zzzyt.rs.util.HtmlFormatter;
 import com.zzzyt.rs.util.StringUtil;
 
@@ -56,8 +57,11 @@ public class HtmlLauncher extends GwtApplication {
 	public ApplicationListener createApplicationListener() {
 		StringUtil.formatter=new HtmlFormatter();
 		RocketSimulator game = new RocketSimulator();
-		game.control = new HtmlController();
-		game.handler = new HtmlHandler();
+//		game.control = new HtmlDesktopController();
+//		game.handler = new HtmlDesktopHandler();
+		game.control=new GestureDetector(new HtmlMobileController());
+		game.handler=new HtmlMobileHandler();
+		game.showButtons=true;
 		return game;
 	}
 }
